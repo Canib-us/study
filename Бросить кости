@@ -1,0 +1,54 @@
+import java.util.Random;
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args){
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+        int ci = 0, rp = 0;
+        String result = "RESULT";
+        String stop = "STOP";
+        String str;
+        System.out.println("Добро пожаловать в игру 'Кинуть кости', брат. Тебе нужно угадать\nзагаданное" +
+                " мной число от 1 до 100. Чтобы закончить - введи в консоли 'STOP'");
+        Integer sc = 0;
+        do {
+            Integer r = random.nextInt(1, 100);
+            //System.out.println(r); //показывает загаданное число
+            rp++;
+            int c = 0;
+            while (sc != r) {
+                str = scanner.nextLine();
+                try {
+                    sc = Integer.valueOf(str);
+                    c++;
+                    if (sc == r) {
+                        if(ci==0){
+                            ci = c;
+                        } else if (ci>c) {
+                            ci = c;
+                        }
+                        System.out.println("Ты угадал, брат");
+                        System.out.println("Твое количество попыток в текущей игре: " + c);
+                        System.out.println("Твое количество попыток в лучшей игре: "+ci);
+                        //continue;
+                    } else if (sc < r) {
+                        System.out.println("Я сам в шоке, но загаданное число больше, брат");
+                    } else if (sc > r) {
+                        System.out.println("Не ожидал от тебя такого. Загаданное число меньше, брат");
+                    }
+                } catch (NumberFormatException e) {
+                    if (str.equals(result)) {
+                        System.out.println("Твое количество попыток: " + c);
+                        System.out.println("Твое количество попыток в лучшей игре: " + ci);
+                        //continue;
+                    } else if (str.equals(stop)) {
+                        System.out.println("Хаха");
+                        System.out.println("Количество игр: "+rp);
+                        System.out.println(("Количество попыток в лучшей игре: "+ci));
+                        return;
+                    }
+                }
+            }
+        } while (sc != -1);
+    }
+}
